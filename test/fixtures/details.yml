@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2020-12-24
+  genre_id: 1
+  remark: MyString
+  money: 1
+
+two:
+  date: 2020-12-24
+  genre_id: 1
+  remark: MyString
+  money: 1
