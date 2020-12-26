@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+        <h3>支出種類修正</h3></br></br>
+        <div class="genre_edit">
+            <%= form_with model: @genre, url: genre_path(@genre), local: true do |f| %>
+                支出種類：
+                <%= f.text_field :name %></br></br>
+                予　　算：
+                <%= f.number_field :budget %></br></br>
+                <%= f.submit "更新する" %>
+            <% end %>
+        </div>
+    </div>
+</div>
