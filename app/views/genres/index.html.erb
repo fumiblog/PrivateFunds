@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row">
+        <%= form_with model: @genre, url: genres_path(@genre), local: true do |f| %>
+            <div class="genre_create">
+                支出分類：
+                <%= f.text_field :name %>
+                月予算：
+                <%= f.number_field :budget %>
+                <%= f.submit "新規作成" %></br></br>
+            </div>
+        <% end %>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-1">支出分類</th>
+                    <th class="col-2">件　数</th>
+                    <th class="col-2">月間累計</th>
+                    <th class="col-2">月間予算</th>
+                    <th class="col-2">消化率</th>
+                    <th class="col"></th>
+                    <th class="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @sum = 0 %>
+                <%# @sum1 = 0 %>
+                <% @genres.each do |genre| %>
+                <%#= @sum1 += genre.details.money %>
+                <tr>
+                    <td scope="row"><%= genre.name %></td>
+                    <td class="budget", scope="row"><%= genre.details.count %></td>
+                    <td class="budget", scope="row"><%= genre.details.sum(:money).to_s(:delimited) %></td>
+                    <td class="budget", scope="row"><%= genre.budget.to_s(:delimited) %></td>
+                    <td class="budget", scope="row"><%= number_to_percentage((genre.details.sum(:money).to_f / (genre.budget).to_f)*100,precision: 1) %></td>
+                    <td class="a"><%= link_to "編集", edit_genre_path(genre), class: "btn btn-success" %></td>
+                    <td class="a"><%= link_to "削除", genre_path(genre), data: { confirm: "本当に削除しますか？明細も削除されます！"}, method: :delete, class: "btn btn-danger" %></td>
+                </tr>
+                <% @sum += genre.budget %>
+                <% end %>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="budget", scope="row"><%= @sum.to_s(:delimited) %></td>
+                    <td>←支出予算</td>
+                    <td><%= link_to "Home", root_path, class: "glyphicon glyphicon-home home" %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

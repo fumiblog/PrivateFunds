@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <%= form_with model: @detail, url: details_path(@detail), local: true do |f| %>
+            <div class="detail_create">
+                日　　付：
+                <%= f.date_field :date %>
+                支出分類：
+                <%= f.collection_select :genre_id, @genres, :id, :name, include_blank: "支出の分類を選んでください" %>
+                金　　額：
+                <%= f.number_field :money %>
+                備　　考:
+                <%= f.text_field :remark, include_blank: "後で検索できます" %>
+                <%= f.submit "新規作成" %></br></br>
+            </div>
+        <% end %>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-0">日　付</th>
+                    <th class="col-1">支出分類</th>
+                    <th class="col-2">支出金額</th>
+                    <th class="col">備　考</th>
+                    <th class="col"></th>
+                    <th class="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @sum = 0 %>
+
+                <% @details.each do |detail| %>
+                <tr>
+                    <td scope="row"><%= detail.date %></td>
+                    <td scope="row"><%= detail.genre.name %></td>
+                    <td class="money",scope="row"><%= detail.money.to_s(:delimited) %></td>
+                    <td scope="row"><%= detail.remark %></td>
+                    <td class=""><%= link_to "編集", edit_detail_path(detail), class: "btn btn-success" %></td>
+                    <td class=""><%= link_to "削除", detail_path(detail), data: { confirm: "本当に削除しますか？明細も削除されます！"}, method: :delete, class: "btn btn-danger" %></td>
+                </tr>
+                <% @sum += detail.money %>
+                <% end %>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="money", scope="row"><%= @sum.to_s(:delimited) %></td>
+                    <td>←支出合計</td>
+                    <td></td>
+                    <td><%= link_to "Home", root_path, class: "glyphicon glyphicon-home home" %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
