@@ -3,6 +3,8 @@ class GenresController < ApplicationController
         @genre = Genre.new
         @genres = Genre.all
         @details = Detail.where(date: Time.current.all_month)
+        @detail_total = @details.sum(:money)
+        # byebug
     end
     
     def create
@@ -17,7 +19,7 @@ class GenresController < ApplicationController
     
     def update
         @genre = Genre.find(params[:id])
-        @genre.update
+        @genre.update(genre_params)
         redirect_to genres_path
     end
     

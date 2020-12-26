@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <h3>明細修正</h3></br></br>
+        <div class="detail_edit">
+            <%= form_with model: @detail, url: detail_path(@detail), local: true do |f| %>
+                日　　付：
+                <%= f.date_field :date %></br></br>
+                支出種類：
+                <%= f.collection_select :genre_id, @genres, :id, :name %></br></br>
+                金　　額：
+                <%= f.number_field :money %></br></br>
+                備　　考：
+                <%= f.text_field :remark %></br></br>
+                <%= f.submit "更新する" %>
+            <% end %>
+        </div>
+    </div>
+</div>
