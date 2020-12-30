@@ -2,13 +2,14 @@
     <div class="row">
         <h3>支出分類一覧</h3></br>
         <%= form_with model: @genre, url: genres_path(@genre), local: true do |f| %>
-            <div class="genre_create">
-                支出分類：
-                <%= f.text_field :name %>
-                月予算：
-                <%= f.number_field :budget %>
-                <%= f.submit "新規作成" %></br></br>
-            </div>
+        <div class="genre_create">
+            支出分類：
+            <%= f.text_field :name %>
+            月予算：
+            <%= f.number_field :budget %>
+            <%= f.submit "新規作成" %></br></br>
+        </div>
+        <p id="notice"><%= notice %></p>
         <% end %>
         <table class="table table-striped">
             <thead>
@@ -48,5 +49,9 @@
                 </tr>
             </tbody>
         </table>
+        <p id="notice"><%= notice %></p>
+        <h3>分類毎の割合</h3>
+        <%# 以下の1行を変更 %>
+        <%= pie_chart @details.group(:genre_id).sum(:money) %>
     </div>
 </div>
