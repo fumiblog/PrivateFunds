@@ -1,17 +1,20 @@
 <div class="container">
     <div class="row">
-        <h3>今週の支出</h3></br>
-        <div class="this_weeks_spending">`
-            <% @sum = 0 %>
-            <%# @details.(select(Date.today.all_week)).each do |detail| %>
-            <% @details.each do |detail| %>
-                <%= @sum += detail.money %>
+        <h3>今週の支出</h3>
+        <div class="this_weeks_spending">
+            <%= @detail_total.to_s(:delimited) %>
+            円
+            <% if @detail_total >= 20000 %>
+            使いすぎじゃ？
             <% end %>
-        </div>
+        </div></br>
         <div><%= link_to "分類一覧", genres_path %>今月の累計、達成率を作る</div>
         <div><%= link_to "明細一覧", details_path %>分類別集計</div>
         <div><%= link_to "分類一覧", genres_path %></div>
         <div><%= link_to "分類一覧", genres_path %></div>
         <div><%= link_to "分類一覧", genres_path %></div>
+        
+        
     </div>
+    
 </div>

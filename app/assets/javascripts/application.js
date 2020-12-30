@@ -18,12 +18,66 @@
 //= require_tree .
 //= require moment
 //= require fullcalendar
+//= require chartkick
+//= require Chart.bundle
+
 
 $(function () {
-    function eventCalendar() {
-        return $('#calendar').fullCalendar({});
-    };
-    function clearCalendar() {
-        $('#calendar').html('');
-    };
+    // 画面遷移を検知
+    $(document).on('turbolinks:load', function () {
+        if ($('#calendar').length) {
+
+            function Calendar() {
+                return $('#calendar').fullCalendar({
+                });
+            }
+            function clearCalendar() {
+                $('#calendar').html('');
+            }
+
+            $(document).on('turbolinks:load', function () {
+                Calendar();
+            });
+            $(document).on('turbolinks:before-cache', clearCalendar);
+
+            //details: '/details.json', 以下に追加
+            $('#calendar').fullCalendar({
+                details: '/details.json',
+                //カレンダー上部を年月で表示させる
+                detail.detail.nameFormat: 'YYYY年 M月',
+                //曜日を日本語表示
+                daydetail.detail.namesShort: ['日', '月', '火', '水', '木', '金', '土'],
+                //ボタンのレイアウト
+                header: {
+                    left: '',
+                    center: 'detail.detail.name',
+                    right: 'today prev,next'
+                },
+                //終了時刻がないイベントの表示間隔
+                defaultTimeddetailDuration: '03:00:00',
+                buttonText: {
+                    prev: '前',
+                    next: '次',
+                    prevYear: '前年',
+                    nextYear: '翌年',
+                    today: '今日',
+                    month: '月',
+                    week: '週',
+                    day: '日'
+                },
+                // Drag & Drop & Resize
+                editable: true,
+                //イベントの時間表示を２４時間に
+                timeFormat: "HH:mm",
+                //イベントの色を変える
+                detailColor: '#87cefa',
+                //イベントの文字色を変える
+                detailTextColor: '#000000',
+                detailRender: function(detail, element) {
+                    element.css("font-size", "0.8em");
+                    element.css("padding", "5px");
+                }
+            });
+        }
+    });
 });

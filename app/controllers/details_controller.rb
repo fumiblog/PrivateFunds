@@ -1,7 +1,7 @@
 class DetailsController < ApplicationController
     def index
         @detail = Detail.new
-        @details = Detail.all()
+        @details = Detail.all
         @genres = Genre.all
     end
     
@@ -33,7 +33,8 @@ class DetailsController < ApplicationController
     
     private
     def detail_params
-        params.require(:detail).permit([:date,
+        params.require(:detail).permit([
+        :date,
         :genre_id,
         :remark,
         :money])
